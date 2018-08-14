@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 
 // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Classes
+
 export class Player {
     constructor(x, y) {
         this.x = x;
@@ -20,18 +21,19 @@ export class Player {
     }
 
     go_left = () => {
-        this.x -= 1
+        this.x-20>=0? this.x -= 10 : this.x = 10;
+
     };
 
     go_right = () => {
-        this.x += 1
+        this.x+20<=window.innerWidth? this.x += 10 : this.x = window.innerWidth-10;
     };
 
     go_up = () => {
-        this.y -= 1
+        this.y-20>=0? this.y -= 10 : this.y = 10;
     };
 
     go_down = () => {
-        this.y += 1
+        this.y+20<=window.innerHeight? this.y += 10 : this.y = window.innerHeight-10;
     }
 }

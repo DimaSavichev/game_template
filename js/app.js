@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import {World} from "./objects/world";
-
+import {player} from "./objects/player";
 // Загружаем стили. Импортируем, для того чтобы webpack сам с ними разоборался
 import '../styles/index.css'
 
@@ -8,14 +8,14 @@ import '../styles/index.css'
 const ratio = window.devicePixelRatio;
 
 // Создаём наш мир
-const world = new World();
+let world = new World();
 
 // Берём размеры экрана
-const logicalWidth = window.innerWidth;
-const logicalHeight = window.innerHeight;
 
+let logicalWidth = window.innerWidth;
+let logicalHeight = window.innerHeight;
 // http://pixijs.download/dev/docs/PIXI.Application.html
-const renderer = PIXI.autoDetectRenderer(
+let renderer = PIXI.autoDetectRenderer(
     logicalWidth,
     logicalHeight,
     {backgroundColor: 0x00000, resolution: 2});
@@ -26,7 +26,8 @@ const keys = {"w": false, "s": false, "a": false, "d": false};
 function animate() {
     // Позволяет рисовать каждый тик
     requestAnimationFrame(animate);
-
+    logicalWidth = window.innerWidth;
+    logicalHeight = window.innerHeight;
     // http://pixijs.download/dev/docs/PIXI.Container.html
     const stage = new PIXI.Container();
 
@@ -50,21 +51,39 @@ document.addEventListener('keydown', (ev) => {
 }, false);
 
 document.addEventListener('keyup', (ev) => {
+    console.log(ev);
     keys[ev.key] = false;
 }, false);
-
+addEventListener ('click', () =>{
+  
+},true)
+window.addEventListener('resize', () => {
+//    document.getElementById("main").appendChild(renderer.view);
+//    let n = renderer.view;
+//    n.width = window.innerWidth * 2;
+//    n.height = window.innerHeight * 2;
+//    n.style.width = window.innerWidth + 'px';
+//    n.style.height = window.innerHeight + 'px';
+    world = new World;
+}, false);
+window.onresize = (ev) => {
+    setCanvasSize();
+};
 // Начинаем рисовать!
 animate();
-
+function setCanvasSize(){
+    const canvas = renderer.view;
+    canvas.width = window.innerWidth * 2;
+    canvas.height = window.innerHeight * 2;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    renderer.resize (window.innerWidth, window.innerHeight)
+}
 // Wait for document loaded
 window.onload = function () {
     // Достаём <div id="main"/> и суём туда canvas из renderer
     // View Page Source если не веришь
     document.getElementById("main").appendChild(renderer.view);
     // Устанавливаем нужные параметры высоты и ширины для канваса
-    const canvas = renderer.view;
-    canvas.width = logicalWidth * 2;
-    canvas.height = logicalHeight * 2;
-    canvas.style.width = logicalWidth + 'px';
-    canvas.style.height = logicalHeight + 'px';
+    setCanvasSize();
 };

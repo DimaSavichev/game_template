@@ -5,7 +5,7 @@ import {Info} from "./info"
 export class World {
     constructor() {
         // Создадим игрока
-        this.player = new Player(0, 0)
+        this.player = new Player(10, 10)
     }
 
     // В зависисмости от нажатых клавиш изменяем среду
@@ -33,6 +33,7 @@ export class World {
         });
 
     };
+
 
     get_items() {
         return [this.player, new Info(this.player.x, this.player.y)]
