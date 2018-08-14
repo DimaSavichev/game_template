@@ -1,11 +1,16 @@
 import {Player} from "./player";
 import {Info} from "./info"
-
+import {Laser} from "./laser"
 
 export class World {
     constructor() {
         // Создадим игрока
-        this.player = new Player(10, 10)
+        this.player = new Player(10, 10);
+        this.las = []
+    }
+    click (b, c) {
+        console.log(this.player, b, c);
+        this.las.push(new Laser (this.player.x, this.player.y, b, c));
     }
 
     // В зависисмости от нажатых клавиш изменяем среду
@@ -36,7 +41,8 @@ export class World {
 
 
     get_items() {
-        return [this.player, new Info(this.player.x, this.player.y)]
+        //this.a = this.a.filter(Laser =>
+        return [this.player, new Info(this.player.x, this.player.y), ...this.las]
     }
 
 }

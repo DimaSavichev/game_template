@@ -54,18 +54,12 @@ document.addEventListener('keyup', (ev) => {
     console.log(ev);
     keys[ev.key] = false;
 }, false);
-addEventListener ('click', () =>{
-  
-},true)
-window.addEventListener('resize', () => {
-//    document.getElementById("main").appendChild(renderer.view);
-//    let n = renderer.view;
-//    n.width = window.innerWidth * 2;
-//    n.height = window.innerHeight * 2;
-//    n.style.width = window.innerWidth + 'px';
-//    n.style.height = window.innerHeight + 'px';
-    world = new World;
-}, false);
+
+document.addEventListener('click', (ev) => {
+    world.click(ev.x, ev.y);
+
+}, true);
+
 window.onresize = (ev) => {
     setCanvasSize();
 };
